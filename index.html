@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<!-- Diz ao navegador: "este arquivo é HTML5" -->
+<html lang="pt-BR">
+<!-- lang="pt-BR" informa o idioma (ajuda leitores de tela e buscadores) -->
+
+<head>
+  <!-- O <head> guarda informações INVISÍVEIS sobre a página -->
+  <meta charset="UTF-8" />
+  <!-- charset UTF-8 permite acentos e emojis sem quebrar -->
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Faz o site se ajustar ao tamanho do celular (responsividade) -->
+
+  <title>Herbarium Arcana</title>
+  <!-- Texto que aparece na aba do navegador -->
+
+  <link rel="stylesheet" href="style.css" />
+  <!-- Conecta o arquivo de estilo. O caminho é relativo ao index.html -->
+</head>
+
+<body>
+  <!-- O <body> guarda tudo que APARECE na tela -->
+
+  <header class="topo">
+    <!-- <header> = cabeçalho. class="topo" é um "apelido" que usaremos no CSS -->
+    <a class="identidade" href="#" aria-label="Herbarium Arcana — início">
+      <span class="identidade-icone" aria-hidden="true">🌿</span>
+      <span>
+        <!-- <h1> = título principal. Deve existir só um por página -->
+        <h1 class="identidade-nome">Herbarium Arcana</h1>
+        <span class="identidade-legenda">um caderno de descobertas</span>
+      </span>
+    </a>
+    <button id="botao-tema" type="button" aria-label="Alternar entre o tema claro e o noturno">
+      <span aria-hidden="true">☼</span>
+      Trocar tema
+    </button>
+    <!-- id="botao-tema" é um nome ÚNICO: o JavaScript vai encontrar o botão por ele -->
+  </header>
+
+  <main class="conteudo">
+    <!-- <main> = conteúdo principal da página -->
+    <section class="pergaminho">
+      <!-- <section> = uma seção do conteúdo -->
+      <div class="apresentacao">
+        <div class="apresentacao-texto">
+          <p class="sobretitulo">HERBÁRIO DIGITAL · CADERNO DE CAMPO</p>
+          <h2>Bem-vinda ao Grimório</h2>
+          <p class="introducao">
+            Um herbário encantado para descobrir, catalogar
+            e aprender a cuidar de plantas.
+          </p>
+          <a class="link-descoberta" href="#proposito">
+            Explore este projeto <span aria-hidden="true">↓</span>
+          </a>
+        </div>
+        <div class="ilustracao" aria-hidden="true">
+          <span class="ilustracao-brilho">✦</span>
+          <span class="ilustracao-planta">🌱</span>
+          <span class="ilustracao-orbita"></span>
+          <span class="ilustracao-nota">crescer<br />com cuidado</span>
+        </div>
+      </div>
+      <p class="aviso">
+        ✨ Projeto em construção, feito por uma estudante aprendendo na prática.
+      </p>
+    </section>
+
+    <section class="proposito" id="proposito" aria-labelledby="titulo-proposito">
+      <div class="proposito-cabecalho">
+        <p class="sobretitulo">PEQUENAS DESCOBERTAS, GRANDES APRENDIZADOS</p>
+        <h2 id="titulo-proposito">Um lugar para aprender com a natureza</h2>
+        <p>
+          A ideia é reunir curiosidades e cuidados com plantas em um espaço
+          acolhedor, feito passo a passo.
+        </p>
+      </div>
+      <div class="pilares">
+        <article class="pilar">
+          <span class="pilar-icone" aria-hidden="true">⌕</span>
+          <h3>Descobrir</h3>
+          <p>Conhecer plantas, observar seus detalhes e despertar a curiosidade.</p>
+        </article>
+        <article class="pilar">
+          <span class="pilar-icone" aria-hidden="true">✎</span>
+          <h3>Catalogar</h3>
+          <p>Registrar informações e construir um acervo de descobertas botânicas.</p>
+        </article>
+        <article class="pilar">
+          <span class="pilar-icone" aria-hidden="true">❋</span>
+          <h3>Cuidar</h3>
+          <p>Aprender, com calma, o que cada planta precisa para crescer bem.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="rodape">
+    <span>Feito com curiosidade e carinho <span aria-hidden="true">🌿</span></span>
+    <span>Herbarium Arcana · em constante florescimento</span>
+  </footer>
+
+  <script src="main.js"></script>
+  <!-- O script fica no FINAL do body de propósito: assim o HTML já existe
+       quando o JavaScript tentar encontrar o botão -->
+</body>
+</html>

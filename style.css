@@ -1,0 +1,429 @@
+/* ============================================
+   1) VARIÁVEIS DE COR (a "paleta" do projeto)
+   Variáveis CSS começam com -- e são usadas com var(--nome).
+   Vantagem: para mudar o tema, trocamos só estes valores.
+   ============================================ */
+
+/* :root = o elemento mais "alto" da página; as variáveis valem para tudo */
+:root {
+  --cor-fundo: #f3ead3;      /* pergaminho */
+  --cor-texto: #3b2a1a;      /* marrom escuro */
+  --cor-destaque: #2f4a2f;   /* verde-floresta */
+  --cor-detalhe: #b8923a;    /* dourado envelhecido */
+  --cor-cartao: #fbf6e8;     /* pergaminho claro */
+}
+
+/* Quando o <html> tiver data-tema="noturno", estas cores SUBSTITUEM as de cima.
+   [data-tema="noturno"] = "elemento que tenha este atributo" */
+:root[data-tema="noturno"] {
+  --cor-fundo: #14201a;
+  --cor-texto: #e8dfc4;
+  --cor-destaque: #8fbf8f;
+  --cor-detalhe: #d6b25e;
+  --cor-cartao: #1f3027;
+}
+
+/* ============================================
+   2) ESTILO GERAL
+   ============================================ */
+
+/* * = todos os elementos. box-sizing evita que padding "estoure" a largura */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;                          /* tira a margem padrão do navegador */
+  font-family: Georgia, serif;        /* fonte com ar de livro antigo */
+  background-color: var(--cor-fundo); /* usa a variável criada acima */
+  color: var(--cor-texto);
+  transition: background-color 0.5s, color 0.5s;
+  /* transition = a troca de cor acontece suavemente em 0,5 segundo */
+}
+
+/* ============================================
+   3) CABEÇALHO
+   ============================================ */
+
+.topo {
+  /* .topo = seleciona elementos com class="topo" */
+  display: flex;                  /* flex = coloca itens lado a lado */
+  justify-content: space-between; /* título na esquerda, botão na direita */
+  align-items: center;            /* alinha na vertical */
+  padding: 1rem 2rem;             /* espaço interno (rem = relativo ao tamanho da fonte) */
+  border-bottom: 2px solid var(--cor-detalhe);
+}
+
+.topo h1 {
+  margin: 0;
+  color: var(--cor-destaque);
+  font-size: 1.6rem;
+}
+
+button {
+  background: var(--cor-destaque);
+  color: var(--cor-fundo);
+  border: 1px solid var(--cor-detalhe);
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;             /* cantos arredondados */
+  cursor: pointer;                /* mãozinha ao passar o mouse */
+  font-family: inherit;           /* usa a mesma fonte da página */
+}
+
+button:hover {
+  /* :hover = quando o mouse está sobre o elemento */
+  box-shadow: 0 0 12px var(--cor-detalhe); /* brilho dourado "mágico" */
+}
+
+/* ============================================
+   4) CONTEÚDO
+   ============================================ */
+
+.conteudo {
+  max-width: 700px;   /* nunca passa de 700px de largura */
+  margin: 3rem auto;  /* "auto" nas laterais = centraliza */
+  padding: 0 1rem;
+}
+
+.pergaminho {
+  background: var(--cor-cartao);
+  border: 2px solid var(--cor-detalhe);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  animation: aparecer 1s ease; /* chama a animação definida abaixo */
+}
+
+.pergaminho h2 {
+  color: var(--cor-destaque);
+  margin-top: 0;
+}
+
+.aviso {
+  font-style: italic;
+  color: var(--cor-detalhe);
+}
+
+/* @keyframes define uma animação: do estado "from" (início) ao "to" (fim) */
+@keyframes aparecer {
+  from { opacity: 0; transform: translateY(20px); } /* invisível e 20px abaixo */
+  to   { opacity: 1; transform: translateY(0); }    /* visível e no lugar */
+}
+
+/* ============================================
+   5) RESPONSIVIDADE
+   @media = "só aplique estas regras se a tela for menor que 600px"
+   ============================================ */
+@media (max-width: 600px) {
+  .topo {
+    flex-direction: column; /* empilha título e botão */
+    gap: 0.8rem;
+  }
+}
+
+/* ============================================
+   6) APRESENTAÇÃO DO HERBÁRIO
+   ============================================ */
+
+body {
+  min-height: 100vh;
+  line-height: 1.65;
+  background-image:
+    radial-gradient(ellipse at 12% 8%, rgba(184, 146, 58, 0.12), transparent 30rem),
+    radial-gradient(ellipse at 90% 48%, rgba(47, 74, 47, 0.08), transparent 28rem);
+}
+
+.topo {
+  padding: 1rem clamp(1.25rem, 6vw, 5rem);
+}
+
+.identidade {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.identidade-icone {
+  display: grid;
+  width: 2.8rem;
+  height: 2.8rem;
+  place-items: center;
+  border: 1px solid var(--cor-detalhe);
+  border-radius: 50%;
+  font-size: 1.35rem;
+}
+
+.identidade-nome,
+.identidade-legenda {
+  display: block;
+}
+
+.identidade-nome {
+  color: var(--cor-destaque);
+  font-weight: 700;
+  letter-spacing: 0.025em;
+}
+
+.identidade-legenda {
+  font-size: 0.75rem;
+  opacity: 0.75;
+}
+
+button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+button:hover {
+  transform: translateY(-2px);
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 3px solid var(--cor-detalhe);
+  outline-offset: 4px;
+}
+
+.conteudo {
+  width: min(100% - 2rem, 1080px);
+  max-width: none;
+  margin: clamp(2rem, 7vw, 5.5rem) auto 3rem;
+  padding: 0;
+}
+
+.pergaminho {
+  overflow: hidden;
+  padding: clamp(1.5rem, 5vw, 4rem);
+  border-width: 1px;
+  border-radius: 1.25rem;
+  background:
+    linear-gradient(120deg, var(--cor-cartao) 45%, transparent 100%),
+    var(--cor-cartao);
+  box-shadow: 0 18px 55px rgba(47, 42, 27, 0.12);
+}
+
+.apresentacao {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(220px, 0.65fr);
+  align-items: center;
+  gap: 2rem;
+  min-height: 290px;
+}
+
+.sobretitulo {
+  margin: 0 0 0.85rem;
+  color: var(--cor-detalhe);
+  font-family: Arial, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+}
+
+.apresentacao h2 {
+  margin: 0;
+  color: var(--cor-destaque);
+  font-size: clamp(2.2rem, 6vw, 4rem);
+  line-height: 1.08;
+}
+
+.introducao {
+  max-width: 34rem;
+  margin: 1.25rem 0 1.5rem;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+}
+
+.link-descoberta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: var(--cor-destaque);
+  font-weight: 700;
+  text-decoration-color: var(--cor-detalhe);
+  text-underline-offset: 0.3rem;
+}
+
+.link-descoberta span {
+  transition: transform 180ms ease;
+}
+
+.link-descoberta:hover span {
+  transform: translateY(3px);
+}
+
+.ilustracao {
+  position: relative;
+  display: grid;
+  width: min(100%, 260px);
+  aspect-ratio: 1;
+  place-items: center;
+  justify-self: center;
+  border: 1px solid rgba(184, 146, 58, 0.55);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(184, 146, 58, 0.16), rgba(47, 74, 47, 0.06) 68%);
+}
+
+.ilustracao-planta {
+  z-index: 1;
+  font-size: clamp(5rem, 12vw, 8rem);
+  filter: drop-shadow(0 10px 8px rgba(47, 74, 47, 0.15));
+}
+
+.ilustracao-orbita {
+  position: absolute;
+  inset: 12%;
+  border: 1px dashed rgba(47, 74, 47, 0.28);
+  border-radius: 50%;
+}
+
+.ilustracao-brilho {
+  position: absolute;
+  top: 16%;
+  right: 20%;
+  color: var(--cor-detalhe);
+  font-size: 1.5rem;
+}
+
+.ilustracao-nota {
+  position: absolute;
+  right: -0.5rem;
+  bottom: 12%;
+  padding: 0.55rem 0.8rem;
+  border: 1px solid var(--cor-detalhe);
+  border-radius: 0.5rem;
+  background: var(--cor-cartao);
+  color: var(--cor-destaque);
+  font-size: 0.75rem;
+  font-style: italic;
+  line-height: 1.3;
+  transform: rotate(-5deg);
+}
+
+.aviso {
+  margin: 2rem 0 0;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(184, 146, 58, 0.4);
+  font-size: 0.9rem;
+}
+
+.proposito {
+  padding: clamp(2.5rem, 7vw, 5rem) 0 1rem;
+}
+
+.proposito-cabecalho {
+  max-width: 42rem;
+  margin-bottom: 2rem;
+}
+
+.proposito-cabecalho h2 {
+  margin: 0;
+  color: var(--cor-destaque);
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  line-height: 1.2;
+}
+
+.proposito-cabecalho > p:last-child {
+  max-width: 36rem;
+  margin: 0.8rem 0 0;
+  opacity: 0.85;
+}
+
+.pilares {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.pilar {
+  padding: 1.5rem;
+  border: 1px solid rgba(184, 146, 58, 0.45);
+  border-radius: 0.9rem;
+  background: var(--cor-cartao);
+  box-shadow: 0 8px 24px rgba(47, 42, 27, 0.06);
+}
+
+.pilar-icone {
+  display: grid;
+  width: 2.5rem;
+  height: 2.5rem;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(184, 146, 58, 0.16);
+  color: var(--cor-destaque);
+  font-size: 1.25rem;
+}
+
+.pilar h3 {
+  margin: 1rem 0 0.35rem;
+  color: var(--cor-destaque);
+}
+
+.pilar p {
+  margin: 0;
+  font-size: 0.92rem;
+  opacity: 0.85;
+}
+
+.rodape {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.25rem clamp(1.25rem, 6vw, 5rem);
+  border-top: 1px solid rgba(184, 146, 58, 0.45);
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+
+:root[data-tema="noturno"] body {
+  background-image:
+    radial-gradient(ellipse at 12% 8%, rgba(214, 178, 94, 0.1), transparent 30rem),
+    radial-gradient(ellipse at 90% 48%, rgba(143, 191, 143, 0.08), transparent 28rem);
+}
+
+@media (max-width: 700px) {
+  .apresentacao {
+    grid-template-columns: 1fr;
+  }
+
+  .ilustracao {
+    width: min(65vw, 230px);
+  }
+
+  .pilares {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .topo {
+    flex-direction: row;
+    justify-content: space-between;
+    padding-inline: 1rem;
+  }
+
+  .identidade-legenda {
+    display: none;
+  }
+
+  .topo button {
+    padding: 0.55rem 0.75rem;
+  }
+
+  .rodape {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
